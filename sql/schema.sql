@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS transportadora
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE transportadora;
+
+CREATE TABLE IF NOT EXISTS entrega (
+  id INT NOT NULL AUTO_INCREMENT,
+  destinatario VARCHAR(150) NOT NULL,
+  cidade VARCHAR(100) NOT NULL,
+  status VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

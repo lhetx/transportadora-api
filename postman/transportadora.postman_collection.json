@@ -1,0 +1,187 @@
+{
+  "info": {
+    "name": "Transportadora — CRUD",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Listar entregas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/entrega"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta JSON\", () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Criar entrega",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/entrega",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destinatario\": \"Maria Silva\",\n  \"cidade\": \"Goiânia\",\n  \"status\": \"pendente\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+              "pm.test(\"Resposta JSON\", () => pm.response.to.be.json);",
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"id\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Buscar entrega",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/entrega/{{id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta JSON\", () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Atualizar entrega",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/entrega/{{id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destinatario\": \"Maria Silva\",\n  \"cidade\": \"Goiânia\",\n  \"status\": \"entregue\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta JSON\", () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Excluir entrega",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/entrega/{{id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta JSON\", () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Confirmar exclusão",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/entrega/{{id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "pm.test(\"Resposta JSON\", () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
